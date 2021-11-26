@@ -13,11 +13,7 @@ class DataSet:
             :param csv_path:    the path containing the dataset as csv
         """
         try:
-            self.data = np.loadtxt(
-                open(csv_path),
-                delimiter=",",
-                skiprows=1
-            )
+            self.data = np.loadtxt(open(csv_path), delimiter=",", skiprows=1)
         except FileNotFoundError:
             print("Wrong file or file path", file=sys.stderr)
             sys.exit(0)

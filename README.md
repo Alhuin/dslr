@@ -21,7 +21,7 @@ install only prod dependencies
 install prod and dev dependencies
     ```pip install -e ".[dev]"```
 
-usage: 
+usage:
 
 run tests
     ```pytest```
