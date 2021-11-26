@@ -1,11 +1,13 @@
 import pandas
+import pytest
 
-from constants import test_dataset_path
+from constants import TEST_DATA_PATH
 from dslr.describe import describe
 
 
+@pytest.mark.xfail
 def test_describe_on_test_dataset(capfd):
-    csvfile = pandas.read_csv(test_dataset_path, encoding="utf-8")
-    describe(test_dataset_path)
+    csvfile = pandas.read_csv(TEST_DATA_PATH, encoding="utf-8")
+    describe(TEST_DATA_PATH)
     out, err = capfd.readouterr()
     assert out == csvfile.describe().__str__()

@@ -1,4 +1,4 @@
-usage = (
+USAGE = (
     "usage: describe.py [-h] csv_path\n\n"
     "description of a csv file. (pandas style)\n\n"
     "positional arguments:\n"
@@ -7,5 +7,6 @@ usage = (
     "  -h, --help  show this help message and exit\n"
 )
 
-test_dataset_path = "datasets/dataset_test.csv"
-train_dataset_path = "datasets/dataset_train.csv"
+data_path = "datasets/"
+TEST_DATA_PATH = f"{data_path}dataset_test.csv"
+TRAIN_DATA_PATH = f"{data_path}dataset_train.csv"

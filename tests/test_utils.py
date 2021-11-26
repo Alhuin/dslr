@@ -2,7 +2,7 @@ from argparse import Namespace
 
 import pytest
 
-from constants import usage
+from constants import USAGE
 from dslr.utils import parse_describe
 
 
@@ -25,7 +25,7 @@ def test_parse_print_help_and_exit(capfd):
     with pytest.raises(SystemExit):
         parse_describe(["-h"])
     out, err = capfd.readouterr()
-    assert out == usage
+    assert out == USAGE
 
 
 def test_parse_describe_unrecognized_aguments(capfd):
