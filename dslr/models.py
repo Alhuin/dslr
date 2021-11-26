@@ -8,9 +8,9 @@ class DataSet:
 
     def load_csv(self, csv_path):
         """
-            Opens the csv_path and loads the data contained
-                exit if csv_path is invalid
-            :param csv_path:    the path containing the dataset as csv
+        Opens the csv_path and loads the data contained
+            exit if csv_path is invalid
+        :param csv_path:    the path containing the dataset as csv
         """
         try:
             self.data = np.loadtxt(open(csv_path), delimiter=",", skiprows=1)

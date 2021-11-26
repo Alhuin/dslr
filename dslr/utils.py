@@ -3,11 +3,11 @@ import argparse
 
 def parse_describe(args):
     """
-        Parse arguments from sys.argv
-        :param
-            list: args:     all the arguments passed from command line
-        :return:
-            Namespace: parsed_args:    the parsed arguments
+    Parse arguments from sys.argv
+    :param
+        list: args:     all the arguments passed from command line
+    :return:
+        Namespace: parsed_args:    the parsed arguments
     """
     parser = argparse.ArgumentParser(
         prog="describe.py", description="description of a csv file. (pandas style)"
