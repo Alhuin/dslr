@@ -6,3 +6,6 @@ usage = (
     "options:\n"
     "  -h, --help  show this help message and exit\n"
 )
+
+test_dataset_path = 'datasets/dataset_test.csv'
+train_dataset_path = 'datasets/dataset_train.csv'
