@@ -3,6 +3,11 @@ import numpy as np
 
 
 class DataSet:
+    """
+    DataSet class handling csv parsing
+    """
+
+    # pylint: disable=too-few-public-methods
     def __init__(self):
         self.data = None
 
@@ -13,7 +18,8 @@ class DataSet:
         :param csv_path:    the path containing the dataset as csv
         """
         try:
-            self.data = np.loadtxt(open(csv_path), delimiter=",", skiprows=1)
+            with open(csv_path, encoding="utf-8") as file:
+                self.data = np.loadtxt(file, delimiter=",", skiprows=1)
         except FileNotFoundError:
             print("Wrong file or file path", file=sys.stderr)
             sys.exit(0)

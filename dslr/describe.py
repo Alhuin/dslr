@@ -4,7 +4,12 @@ from dslr.utils import parse_describe
 
 
 def describe(csv_path):
-    print(" ")
+    """
+
+    :param csv_path: the path of the dataset to describe
+    :return: nothing, prints on stdout
+    """
+    print(csv_path)
 
 
 def main():
