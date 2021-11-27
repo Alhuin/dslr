@@ -3,31 +3,24 @@
 
 installation:
 
-install pyenv
-    ```brew install pyenv pyenv-virtualenv```
+clone project
+    ``git clone https://github.com/Alhuin/dslr && cd $_``
+
+install pyenv and poetry
+    ``brew install pyenv pyenv-virtualenv poetry``
 
 install python 3.10.0
-    ```pyenv install 3.10.0```
+    ``pyenv install 3.10.0``
 
-create virtualenv dslr
-    ```pyenv virtualenv 3.10.0 dslr```
+set python 3.10 as directory interpreter
+    ``pyenv local 3.10.0``
 
-auto source environment
-    ```pyenv local dslr```
+create virtualenv with poetry and install dependencies
+    ``poetry shell``
+    ``poetry install``
 
-install only prod dependencies
-    ```pip install -e .```
-
-install prod and dev dependencies
-    ```pip install -e ".[dev]"```
 
 usage:
 
-run tests
-    ```pytest```
-
-run coverage
-    ```pytest --cov dslr```
-
-run linter
-    ```flake8```
+run tests, lint and format
+    ```poetry run tox```
