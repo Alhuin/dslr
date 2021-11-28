@@ -1,21 +1,19 @@
 import sys
 
+from dslr.models import DataSet
 from dslr.utils import parse_describe
 
 
-def describe(csv_path):
-    """
+def main(args=None):
+    if args is None:
+        args = parse_describe(sys.argv[1:])
+        csv_path = args.csv_path  # pragma: no cover  (unreachable by tests)
+    else:
+        csv_path = args["csv_path"]
 
-    :param csv_path: the path of the dataset to describe
-    :return: nothing, prints on stdout
-    """
-    print(csv_path)
-
-
-def main():
-    args = parse_describe(sys.argv[1:])
-    describe(args.csv_path)
+    dataset = DataSet(csv_path)
+    dataset.describe()
 
 
-if __name__ == "__main__":
+if __name__ == "__main__":  # pragma: no cover
     main()
