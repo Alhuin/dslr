@@ -1,26 +1,35 @@
-# dslr
-42School Machine Learning Project: Logistic Regression
+============
+DSLR: 42School Machine Learning Project: Logistic Regression
+============
 
-installation:
+***************
+Prerequisites
+***************
 
-clone project
-    ``git clone https://github.com/Alhuin/dslr && cd $_``
+- pyenv and poetry
+    - ``brew install pyenv pyenv-virtualenv poetry``
 
-install pyenv and poetry
-    ``brew install pyenv pyenv-virtualenv poetry``
+- python 3.10.0
+    - ``pyenv install 3.10.0``
 
-install python 3.10.0
-    ``pyenv install 3.10.0``
+***************
+Installation
+***************
 
-set python 3.10 as directory interpreter
-    ``pyenv local 3.10.0``
+- clone project
+    - ``git clone https://github.com/Alhuin/dslr && cd $_``
 
-create virtualenv with poetry and install dependencies
-    ``poetry shell``
-    ``poetry install``
+- set python 3.10 as directory interpreter
+    - ``pyenv local 3.10.0``
+
+- setup poetry virtualenv
+    - ``poetry shell``
+    - ``poetry install``
 
 
-usage:
+******
+Usage
+******
 
-run tests, lint and format
+- run tests and lint
     ```poetry run tox```
