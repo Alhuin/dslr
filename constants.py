@@ -7,6 +7,6 @@ USAGE = (
     "  -h, --help  show this help message and exit\n"
 )
 
-data_path = "datasets/"
-TEST_DATA_PATH = f"{data_path}dataset_test.csv"
-TRAIN_DATA_PATH = f"{data_path}dataset_train.csv"
+DATA_PATH = "datasets/"
+TEST_DATA_PATH = f"{DATA_PATH}dataset_test.csv"
+TRAIN_DATA_PATH = f"{DATA_PATH}dataset_train.csv"

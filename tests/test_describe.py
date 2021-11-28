@@ -9,5 +9,5 @@ from dslr.describe import describe
 def test_describe_on_test_dataset(capfd):
     csvfile = pandas.read_csv(TEST_DATA_PATH, encoding="utf-8")
     describe(TEST_DATA_PATH)
-    out, err = capfd.readouterr()
-    assert out == csvfile.describe().__str__()
+    captured = capfd.readouterr()
+    assert captured.out == csvfile.describe().__str__()
