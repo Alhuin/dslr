@@ -10,3 +10,4 @@ USAGE = (
 DATA_PATH = "datasets/"
 TEST_DATA_PATH = f"{DATA_PATH}dataset_test.csv"
 TRAIN_DATA_PATH = f"{DATA_PATH}dataset_train.csv"
+WRONG_FORMAT_DATA_PATH = f"{DATA_PATH}dataset_wrong_format.csv"
