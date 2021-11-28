@@ -12,3 +12,12 @@ def parse_describe(args):
     parser = argparse.ArgumentParser(prog="describe.py", description="description of a csv file. (pandas style)")
     parser.add_argument("csv_path", type=str, help="the path where the csv file is stored")
     return parser.parse_args(args)
+
+
+def is_num(string):
+    try:
+        float(string)
+    except ValueError:
+        return False
+    else:
+        return True
