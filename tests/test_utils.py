@@ -11,8 +11,8 @@ def test_parse_describe_no_args(capfd):
         parse_describe([])
     captured = capfd.readouterr()
     assert (
-        captured.err == "usage: describe.py [-h] csv_path\n"
-        "describe.py: error: the following arguments are required: csv_path\n"
+        captured.err
+        == "usage: describe.py [-h] csv_path\ndescribe.py: error: the following arguments are required: csv_path\n"
     )
 
 
@@ -32,7 +32,4 @@ def test_parse_describe_unrecognized_aguments(capfd):
     with pytest.raises(SystemExit):
         parse_describe(["path.csv", "-q"])
     captured = capfd.readouterr()
-    assert (
-        captured.err
-        == "usage: describe.py [-h] csv_path\ndescribe.py: error: unrecognized arguments: -q\n"
-    )
+    assert captured.err == "usage: describe.py [-h] csv_path\ndescribe.py: error: unrecognized arguments: -q\n"

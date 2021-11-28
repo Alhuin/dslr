@@ -9,10 +9,6 @@ def parse_describe(args):
     :return:
         Namespace: parsed_args:    the parsed arguments
     """
-    parser = argparse.ArgumentParser(
-        prog="describe.py", description="description of a csv file. (pandas style)"
-    )
-    parser.add_argument(
-        "csv_path", type=str, help="the path where the csv file is stored"
-    )
+    parser = argparse.ArgumentParser(prog="describe.py", description="description of a csv file. (pandas style)")
+    parser.add_argument("csv_path", type=str, help="the path where the csv file is stored")
     return parser.parse_args(args)
