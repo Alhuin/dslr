@@ -33,5 +33,8 @@ Installation
 Usage
 ******
 
-- run tests, lint and coverage
+- run tests and lint with tox
     ``poetry run tox``
+
+- run tests and coverage locally
+    ```poetry run coverage run --source=dslr -m pytest && poetry run coverage report -m``
