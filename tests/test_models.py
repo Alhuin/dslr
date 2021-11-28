@@ -52,7 +52,7 @@ def test_mean():
 
 def test_std():
     feature = NumericFeature("label", [1, 2, 8, 13])
-    assert feature.std() == 54.270925303824825
+    assert feature.std() == 5.597618541248888
 
 
 def test_min():
@@ -78,7 +78,7 @@ def test_describe(capfd):
         captured.out
         == "count      5.000000\n"
         "mean       3.000000\n"
-        "std        5.000000\n"
+        "std        1.581139\n"
         "min        1.000000\n"
         "25%        2.000000\n"
         "50%        3.000000\n"

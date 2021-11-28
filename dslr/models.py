@@ -111,7 +111,7 @@ class NumericFeature(Feature):
 
     def std(self):
         """Standard deviation of the observations"""
-        return sum((x - self.mean()) ** 2 for x in self.data) / (self.len - 1) ** 0.5
+        return (sum((x - self.mean()) ** 2 for x in self.data) / (self.len - 1)) ** 0.5
 
     def min(self):
         """Minimum of the values in the object"""
