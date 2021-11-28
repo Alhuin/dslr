@@ -33,5 +33,5 @@ Installation
 Usage
 ******
 
-- run tests and lint
-    ```poetry run tox```
+- run tests, lint and coverage
+    ``poetry run tox``
