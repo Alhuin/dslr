@@ -17,7 +17,7 @@ def test_dataset_wrong_format(capfd):
     with pytest.raises(SystemExit):
         DataSet(WRONG_FORMAT_DATA_PATH)
     captured = capfd.readouterr()
-    assert captured.err == "Invalid data format\n"
+    assert captured.err == "Invalid data format"
 
 
 #   Feature
@@ -27,7 +27,7 @@ def test_feature_init_no_data(capfd):
     with pytest.raises(SystemExit):
         Feature("label", "category", [], None)
     captured = capfd.readouterr()
-    assert captured.err == "Cannot initialize feature: No data\n"
+    assert captured.err == "Cannot initialize feature: No data"
 
 
 def test_feature_str(capfd):
