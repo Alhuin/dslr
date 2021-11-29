@@ -1,6 +1,8 @@
 import csv
 import sys
 
+import numpy as np
+
 from dslr.utils import is_num
 
 
@@ -28,8 +30,8 @@ class DataSet:
             print(f"Wrong file or file path: {error}", file=sys.stderr)
             sys.exit(0)
 
-        self.header = data[0]
-        self.data = data[1:]
+        self.header = np.array(data[0])
+        self.data = np.array(data[1:])
         nb_cols = len(self.header)
 
         for row in self.data:
@@ -37,16 +39,31 @@ class DataSet:
                 print("Invalid data format", file=sys.stderr)
                 sys.exit(0)
 
-        self.load_features()
+    def get_features(self, filters=None):
+        if filters:
+            data, header = self.filter_data(filters)
+            filter_condition = f"{filters.label} == {filters.value}"
+        else:
+            data = self.data
+            header = self.header
+            filter_condition = None
+        return [self.load_feature(header[i], column, filter_condition) for i, column in enumerate(zip(*data))]
 
-    def load_features(self):
-        self.features = [self.load_feature(self.header[i], column) for i, column in enumerate(zip(*self.data))]
+    def filter_data(self, filters):
+        """
+        Filter rows by condition label == value (eg house == ravenclaw)
+        Then filter the selected cols
+        """
+        label_index = np.where(self.header == filters.label)[0][0]
+        rows_mask = self.data[:, label_index] == filters.value
+        cols_mask = np.in1d(self.header, filters.cols if filters.cols else self.header)
+        return self.data[rows_mask][:, cols_mask], self.header[cols_mask]
 
     @staticmethod
-    def load_feature(label, values):
+    def load_feature(label, values, filters_name):
         if is_num(values[0]):
-            return NumericFeature(label, [float(v) if v != "" else None for v in values])
-        return LiteralFeature(label, values)
+            return NumericFeature(label, [float(v) if v != "" else None for v in values], filters_name)
+        return LiteralFeature(label, values, filters_name)
 
     def describe(self):
         """
@@ -63,7 +80,7 @@ class DataSet:
             f"{'75%':<5}",
             f"{'Max':<5}",
         ]
-        for feature in self.features:
+        for feature in self.get_features():
             if feature.category == "numeric":
                 output[0] += f"{feature.label if len(feature.label) <= 12 else f'{feature.label[:7]}...':>14}"
                 output[1] += f"{feature.count():>14.6f}"
@@ -80,8 +97,9 @@ class DataSet:
 class Feature:  # pylint: disable=too-few-public-methods
     """Abstract Class for all Features"""
 
-    def __init__(self, label, category, data):
+    def __init__(self, label, category, data, filter_condition):
         self.label = label
+        self.filter_condition = filter_condition
         self.category = category
         self.data = [x for x in data if x is not None]
         self.len = len(self.data)
@@ -98,8 +116,8 @@ class NumericFeature(Feature):
     Numeric Feature Class, handling basic statistics
     """
 
-    def __init__(self, label, data):
-        super().__init__(label, "numeric", data)
+    def __init__(self, label, data, filter_condition=None):
+        super().__init__(label, "numeric", data, filter_condition)
 
     def count(self):
         """Count number of non-NA/null observations"""
@@ -150,5 +168,15 @@ class NumericFeature(Feature):
 
 
 class LiteralFeature(Feature):  # pylint: disable=too-few-public-methods
-    def __init__(self, label, data):
-        super().__init__(label, "literal", data)
+    def __init__(self, label, data, filter_condition=None):
+        super().__init__(label, "literal", data, filter_condition)
+
+
+class Filter:  # pylint: disable=too-few-public-methods
+    def __init__(self, label, value, cols=()):
+        self.cols = cols
+        self.label = label
+        self.value = value
+
+    def __str__(self):
+        return f"cols {self.cols.__str__()} for {self.label} == {self.value}"

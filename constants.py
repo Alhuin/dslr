@@ -12,3 +12,17 @@ TEST_DATA_PATH = f"{DATA_PATH}dataset_test.csv"
 TRAIN_DATA_PATH = f"{DATA_PATH}dataset_train.csv"
 WRONG_FORMAT_DATA_PATH = f"{DATA_PATH}dataset_wrong_format.csv"
 DUMMY_DATA_PATH = f"{DATA_PATH}dataset_dummy.csv"
+COURSES = [
+    "Arithmancy",
+    "Astronomy",
+    "Herbology",
+    "Defense Against the Dark Arts",
+    "Divination,Muggle Studies",
+    "Ancient Runes",
+    "History of Magic",
+    "Transfiguration",
+    "Potions",
+    "Care of Magical Creatures",
+    "Charms",
+    "Flying",
+]

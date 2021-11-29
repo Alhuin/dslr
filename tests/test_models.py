@@ -25,13 +25,13 @@ def test_dataset_wrong_format(capfd):
 
 def test_feature_init_no_data(capfd):
     with pytest.raises(SystemExit):
-        Feature("label", "category", [])
+        Feature("label", "category", [], None)
     captured = capfd.readouterr()
     assert captured.err == "Cannot initialize feature: No data\n"
 
 
 def test_feature_str(capfd):
-    feature = Feature("label", "category", [1, 2, 3])
+    feature = Feature("label", "category", [1, 2, 3], None)
     print(feature)
     captured = capfd.readouterr()
     assert captured.out == "category feature: label\n"
