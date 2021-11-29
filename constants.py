@@ -27,3 +27,9 @@ COURSES = [
     "Charms",
     "Flying",
 ]
+HOUSES = [
+    {"name": "Ravenclaw", "color": "blue"},
+    {"name": "Slytherin", "color": "green"},
+    {"name": "Gryffindor", "color": "red"},
+    {"name": "Hufflepuff", "color": "yellow"},
+]
