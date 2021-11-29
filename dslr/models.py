@@ -36,8 +36,8 @@ class DataSet:
 
         for row in self.data:
             if len(row) != nb_cols:
-                print("Invalid data format", file=sys.stderr)
-                sys.exit(0)
+                sys.stderr.write("Invalid data format")
+                sys.exit()
 
     def get_features(self, filters=None):
         if filters:
@@ -107,8 +107,8 @@ class Feature:  # pylint: disable=too-few-public-methods
         self.data = [x for x in data if x is not None]
         self.len = len(self.data)
         if self.len == 0:
-            print("Cannot initialize feature: No data", file=sys.stderr)
-            sys.exit(0)
+            sys.stderr.write("Cannot initialize feature: No data")
+            sys.exit()
 
     def __str__(self):
         return f"{self.category} feature: {self.label}"

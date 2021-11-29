@@ -1,7 +1,7 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from constants import COURSES, TRAIN_DATA_PATH
+from constants import COURSES, HOUSES, TRAIN_DATA_PATH
 from dslr.models import DataSet, Filter
 
 
@@ -13,37 +13,20 @@ def get_marks_by_house_and_course(data, course, house=None):
     return data.get_features(filters)
 
 
-def get_worst_grade(data):
-    minimum = data[0].min()
-    for course in data:
-        minimum = course.min() if course.min() < minimum else minimum
-    return minimum
-
-
-def get_best_grade(data):
-    maximum = data[0].max()
-    for course in data:
-        maximum = course.max() if course.max() > maximum else maximum
-    return maximum
+def plot_house(axis, dataset, house, course, bins):
+    marks = get_marks_by_house_and_course(dataset, course, house)[0]
+    axis.hist(marks.data, bins=bins, color=house["color"], label=house["name"], alpha=0.5)
 
 
 def plot_histogram_by_course(dataset, course, axis):
     """
     add a plot of the repartition of grades by house for a given course
     """
-    global_marks = get_marks_by_house_and_course(dataset, course)
-    best_grade = get_best_grade(global_marks)
-    worst_grade = get_worst_grade(global_marks)
-    ravenclaw_marks = get_marks_by_house_and_course(dataset, course, "Ravenclaw")[0]
-    slytherin_marks = get_marks_by_house_and_course(dataset, course, "Slytherin")[0]
-    gryffindor_marks = get_marks_by_house_and_course(dataset, course, "Gryffindor")[0]
-    hufflepuff_marks = get_marks_by_house_and_course(dataset, course, "Hufflepuff")[0]
-    bins = np.linspace(worst_grade, best_grade)
+    global_marks = get_marks_by_house_and_course(dataset, course)[0]
+    bins = np.linspace(global_marks.min(), global_marks.max())
 
-    axis.hist(ravenclaw_marks.data, bins=bins, color="b", label="Ravenclaw", alpha=0.5)
-    axis.hist(gryffindor_marks.data, bins=bins, color="r", label="Gryffindor", alpha=0.5)
-    axis.hist(slytherin_marks.data, bins=bins, color="g", label="Slytherin", alpha=0.5)
-    axis.hist(hufflepuff_marks.data, bins=bins, color="y", label="Hufflepuff", alpha=0.5)
+    for house in HOUSES:
+        plot_house(axis, dataset, house, course, bins)
     axis.set_title(f"{course}", fontsize=10)
 
 
