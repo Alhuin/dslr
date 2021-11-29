@@ -31,7 +31,7 @@ class DataSet:
             sys.exit(0)
 
         self.header = np.array(data[0])
-        self.data = np.array(data[1:])
+        self.data = np.array(data[1:], dtype=object)
         nb_cols = len(self.header)
 
         for row in self.data:
@@ -54,14 +54,17 @@ class DataSet:
         Filter rows by condition label == value (eg house == ravenclaw)
         Then filter the selected cols
         """
-        label_index = np.where(self.header == filters.label)[0][0]
-        rows_mask = self.data[:, label_index] == filters.value
+        if filters.label:
+            label_index = np.where(self.header == filters.label)[0][0]
+            rows_mask = self.data[:, label_index] == filters.value
+        else:
+            rows_mask = [True for _ in range(self.data.shape[0])]
         cols_mask = np.in1d(self.header, filters.cols if filters.cols else self.header)
         return self.data[rows_mask][:, cols_mask], self.header[cols_mask]
 
     @staticmethod
     def load_feature(label, values, filters_name):
-        if is_num(values[0]):
+        if is_num(values[0]) or is_num(values[1]):
             return NumericFeature(label, [float(v) if v != "" else None for v in values], filters_name)
         return LiteralFeature(label, values, filters_name)
 
@@ -173,7 +176,7 @@ class LiteralFeature(Feature):  # pylint: disable=too-few-public-methods
 
 
 class Filter:  # pylint: disable=too-few-public-methods
-    def __init__(self, label, value, cols=()):
+    def __init__(self, label=None, value=None, cols=None):
         self.cols = cols
         self.label = label
         self.value = value
