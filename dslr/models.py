@@ -52,7 +52,7 @@ class DataSet:
         first_value = next(value for value in values if value)
         try:
             float(first_value)
-            return NumericFeature(label, [float(v) if v else None for v in values], filters_name)
+            return NumericFeature(label, [float(v) if v is not None else None for v in values], filters_name)
         except ValueError:
             return LiteralFeature(label, values, filters_name)
 
@@ -106,7 +106,7 @@ class Feature:  # pylint: disable=too-few-public-methods
         self.filter_condition = filter_condition
         self.category = category
         self.raw_data = data
-        self.data = [x for x in data if x]
+        self.data = [x for x in data if x is not None]
         self.len = len(self.data)
         if self.len == 0:
             sys.stderr.write("Cannot initialize feature: No data")
