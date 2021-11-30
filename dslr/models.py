@@ -52,7 +52,7 @@ class DataSet:
         first_value = next(value for value in values if value)
         try:
             float(first_value)
-            return NumericFeature(label, [float(v) if v is not None else None for v in values], filters_name)
+            return NumericFeature(label, [float(v) if v != "" else None for v in values], filters_name)
         except ValueError:
             return LiteralFeature(label, values, filters_name)
 
