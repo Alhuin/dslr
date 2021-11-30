@@ -17,6 +17,7 @@ def parse_histogram(args):
         help="plot all classes (by default, plot only the class with the most similar distribution between houses)",
         default=False,
     )
+    parser.add_argument("-c", "--course", type=str, help="the course to plot", default="Care of Magical Creatures")
     return parser.parse_args(args)
 
 
@@ -32,6 +33,21 @@ def parse_scatter_plot(args):  # pylint: disable=missing-function-docstring
             "distributions)"
         ),
         default=False,
+    )
+    parser.add_argument(
+        "-c",
+        "--courses",
+        nargs=2,
+        type=str,
+        help="plot one scatter plot representing how much the grades of one course impacts the grades of another",
+        default=["Defense Against the Dark Arts", "Astronomy"],
+    )
+    parser.add_argument(
+        "-afo",
+        "--all_for_one",
+        nargs=1,
+        type=str,
+        help="plot all the comparisons for one course",
     )
     return parser.parse_args(args)
 
