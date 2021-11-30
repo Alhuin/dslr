@@ -2,19 +2,12 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from constants import COURSES, HOUSES, TRAIN_DATA_PATH
-from dslr.models import DataSet, Filter
-
-
-def get_marks_by_house_and_course(data, course, house=None):
-    if house is not None:
-        filters = Filter(label="Hogwarts House", value=house, cols=[course])
-    else:
-        filters = Filter(cols=[course])
-    return data.get_features(filters)
+from dslr.models import DataSet
+from dslr.utils import get_marks_by_house_and_course
 
 
 def plot_house(axis, dataset, house, course, bins):
-    marks = get_marks_by_house_and_course(dataset, course, house)[0]
+    marks = get_marks_by_house_and_course(dataset, course, house["name"])[0]
     axis.hist(marks.data, bins=bins, color=house["color"], label=house["name"], alpha=0.5)
 
 

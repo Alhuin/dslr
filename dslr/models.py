@@ -3,8 +3,6 @@ import sys
 
 import numpy as np
 
-from dslr.utils import is_num
-
 
 class DataSet:
     """
@@ -49,6 +47,15 @@ class DataSet:
             filter_condition = None
         return [self.load_feature(header[i], column, filter_condition) for i, column in enumerate(zip(*data))]
 
+    @staticmethod
+    def load_feature(label, values, filters_name):
+        first_value = next(value for value in values if value)
+        try:
+            float(first_value)
+            return NumericFeature(label, [float(v) if v else None for v in values], filters_name)
+        except ValueError:
+            return LiteralFeature(label, values, filters_name)
+
     def filter_data(self, filters):
         """
         Filter rows by condition label == value (eg house == ravenclaw)
@@ -61,12 +68,6 @@ class DataSet:
             rows_mask = [True for _ in range(self.data.shape[0])]
         cols_mask = np.in1d(self.header, filters.cols if filters.cols else self.header)
         return self.data[rows_mask][:, cols_mask], self.header[cols_mask]
-
-    @staticmethod
-    def load_feature(label, values, filters_name):
-        if is_num(values[0]) or is_num(values[1]):
-            return NumericFeature(label, [float(v) if v != "" else None for v in values], filters_name)
-        return LiteralFeature(label, values, filters_name)
 
     def describe(self):
         """
@@ -104,7 +105,8 @@ class Feature:  # pylint: disable=too-few-public-methods
         self.label = label
         self.filter_condition = filter_condition
         self.category = category
-        self.data = [x for x in data if x is not None]
+        self.raw_data = data
+        self.data = [x for x in data if x]
         self.len = len(self.data)
         if self.len == 0:
             sys.stderr.write("Cannot initialize feature: No data")

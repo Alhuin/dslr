@@ -1,5 +1,7 @@
 import argparse
 
+from dslr.models import Filter
+
 
 def parse_describe(args):
     """
@@ -14,10 +16,9 @@ def parse_describe(args):
     return parser.parse_args(args)
 
 
-def is_num(string):
-    try:
-        float(string)
-    except ValueError:
-        return False
+def get_marks_by_house_and_course(data, course, house=None):
+    if house is not None:
+        filters = Filter(label="Hogwarts House", value=house, cols=[course])
     else:
-        return True
+        filters = Filter(cols=[course])
+    return data.get_features(filters)
