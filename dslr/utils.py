@@ -1,7 +1,5 @@
 import argparse
 
-from dslr.models import Filter
-
 
 def parse_describe(args):
     parser = argparse.ArgumentParser(prog="describe.py", description="description of a csv file. (pandas style)")
@@ -52,9 +50,7 @@ def parse_scatter_plot(args):  # pylint: disable=missing-function-docstring
     return parser.parse_args(args)
 
 
-def get_marks_by_house_and_course(data, course, house=None):
+def get_marks_by_house_and_course(dataframe, course, house=None):
     if house is not None:
-        filters = Filter(label="Hogwarts House", value=house, cols=[course])
-    else:
-        filters = Filter(cols=[course])
-    return data.get_features(filters)
+        return dataframe[dataframe["Hogwarts House"] == house][course]
+    return dataframe[course]

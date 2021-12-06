@@ -1,6 +1,5 @@
 import sys
 
-import numpy as np
 from matplotlib import pyplot as plt
 
 from constants import COURSES, HOUSES, TRAIN_DATA_PATH
@@ -12,12 +11,9 @@ def plot_histogram_by_course(dataset, course, axis=plt):
     """
     add a plot of the repartition of grades by house for a given course
     """
-    global_marks = get_marks_by_house_and_course(dataset, course)[0]
-    bins = np.linspace(global_marks.min(), global_marks.max())
-
     for house in HOUSES:
-        marks = get_marks_by_house_and_course(dataset, course, house["name"])[0]
-        axis.hist(marks.data, bins=bins, color=house["color"], label=house["name"], alpha=0.5)
+        marks = get_marks_by_house_and_course(dataset.data, course, house["name"])
+        axis.hist(marks, bins="rice", color=house["color"], label=house["name"], alpha=0.5)
 
 
 def plot_all_histograms(dataset):

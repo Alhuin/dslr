@@ -14,14 +14,14 @@ def plot_all_scatters(dataset, courses):
     for course_x in courses:
         fig, axes = plt.subplots(3, 4)
         fig.suptitle(course_x)
-        marks_x = get_marks_by_house_and_course(dataset, course=course_x)[0]
+        marks_x = get_marks_by_house_and_course(dataset.data, course=course_x)
         i = 0
         for course_y in COURSES:
             if course_x != course_y:
                 axis = axes.flat[i]
-                marks_y = get_marks_by_house_and_course(dataset, course=course_y)[0]
-                axis.scatter(marks_x.raw_data, marks_y.raw_data, s=1)
-                axis.set_title(marks_y.label, fontsize=10)
+                marks_y = get_marks_by_house_and_course(dataset.data, course=course_y)
+                axis.scatter(marks_x, marks_y, s=1)
+                axis.set_title(marks_y.name, fontsize=10)
                 i += 1
         plt.tight_layout()
         plt.show()
@@ -29,10 +29,10 @@ def plot_all_scatters(dataset, courses):
 
 def plot_one_scatter(dataset, courses):
     course_x, course_y = courses
-    marks_x = get_marks_by_house_and_course(dataset, course=course_x)[0]
-    marks_y = get_marks_by_house_and_course(dataset, course=course_y)[0]
+    marks_x = get_marks_by_house_and_course(dataset.data, course=course_x)
+    marks_y = get_marks_by_house_and_course(dataset.data, course=course_y)
     plt.title(f"{course_x} vs {course_y}")
-    plt.scatter(marks_x.raw_data, marks_y.raw_data, s=1)
+    plt.scatter(marks_x, marks_y, s=1)
     plt.xlabel(course_x)
     plt.ylabel(course_y)
     plt.show()
