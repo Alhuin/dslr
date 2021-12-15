@@ -1,5 +1,7 @@
 import argparse
 
+from constants import HOUSES
+
 
 def parse_describe(args):
     parser = argparse.ArgumentParser(prog="describe.py", description="description of a csv file. (pandas style)")
@@ -7,29 +9,32 @@ def parse_describe(args):
     return parser.parse_args(args)
 
 
-def parse_histogram(args):
-    parser = argparse.ArgumentParser(prog="histogram.py", description="plot house grades by class as histograms")
+def parse_histogram(args):  # pylint: disable=missing-function-docstring
+    parser = argparse.ArgumentParser(
+        prog="histogram.py",
+        description="plot house grades by class as histograms",
+        epilog="by default, plot only the class with the most similar marks distribution between houses",
+    )
     parser.add_argument(
         "--all",
         action="store_true",
-        help="plot all classes (by default, plot only the class with the most similar distribution between houses)",
+        help="plot all classes",
         default=False,
     )
-    parser.add_argument("-c", "--course", type=str, help="the course to plot", default="Care of Magical Creatures")
+    parser.add_argument("-c", "--course", type=str, help="plot one class", default="Care of Magical Creatures")
     return parser.parse_args(args)
 
 
 def parse_scatter_plot(args):  # pylint: disable=missing-function-docstring
     parser = argparse.ArgumentParser(
-        prog="scatter_plot.py", description="plot comparison of class marks distribution as scatter plots"
+        prog="scatter_plot.py",
+        description="plot comparison of class marks distribution as scatter plots",
+        epilog="by default, plot only the comparison between classes with the most similar marks distributions",
     )
     parser.add_argument(
         "--all",
         action="store_true",
-        help=(
-            "plot all the comparisons (by default, plot only the comparison between classes with the most similar "
-            "distributions)"
-        ),
+        help="plot all the comparisons",
         default=False,
     )
     parser.add_argument(
@@ -50,7 +55,10 @@ def parse_scatter_plot(args):  # pylint: disable=missing-function-docstring
     return parser.parse_args(args)
 
 
-def get_marks_by_house_and_course(dataframe, course, house=None):
-    if house is not None:
-        return dataframe[dataframe["Hogwarts House"] == house][course]
-    return dataframe[course]
+def parse_pair_plot(args):
+    parser = argparse.ArgumentParser(prog="pair_plot.py", description="plot the dataset as a pair plot")
+    return parser.parse_args(args)
+
+
+def get_colors(data):
+    return [HOUSES[house] for house in data["Hogwarts House"]]

@@ -1,3 +1,6 @@
+import numpy as np  # for sigmoid
+
+
 def count_(data):
     """Count number of non-NA/null observations"""
     return sum(1 for _ in data)
@@ -36,3 +39,7 @@ def percentile_(data, percentile):
     floor = int(i // 1)
     frac = i % 1
     return sorted_data[floor] + (sorted_data[floor + 1] - sorted_data[floor]) * frac
+
+
+def sigmoid_(value):
+    return 1 / (1 + np.exp(-value))

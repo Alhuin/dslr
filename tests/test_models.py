@@ -1,6 +1,6 @@
 import pytest
 
-from dslr.models import DataSet
+from dslr.models.dataset import DataSet
 from dslr.stats import count_, max_, mean_, min_, percentile_, std_
 
 #   DataSet

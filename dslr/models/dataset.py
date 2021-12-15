@@ -1,20 +1,9 @@
 import sys
-from dataclasses import dataclass
 
 import pandas as pd
 from pandas.core.dtypes.common import is_numeric_dtype
 
 from dslr.stats import count_, max_, mean_, min_, percentile_, std_
-
-
-@dataclass
-class Filter:  # pylint: disable=too-few-public-methods
-    cols: list[str] = None
-    label: str = None
-    value: str = None
-
-    def __str__(self) -> str:
-        return f"cols {self.cols.__str__()} for {self.label} == {self.value}"
 
 
 class DataSet:

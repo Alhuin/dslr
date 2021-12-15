@@ -3,38 +3,32 @@ import sys
 from matplotlib import pyplot as plt
 
 from constants import COURSES, TRAIN_DATA_PATH
-from dslr.models import DataSet
-from dslr.utils import get_marks_by_house_and_course, parse_scatter_plot
+from dslr.models.dataset import DataSet
+from dslr.utils import get_colors, parse_scatter_plot
 
 
-def plot_all_scatters(dataset, courses):
+def plot_all_scatters(data, courses):
     """
     Plot all the possible comparison between courses (one view by course)
     """
     for course_x in courses:
         fig, axes = plt.subplots(3, 4)
         fig.suptitle(course_x)
-        marks_x = get_marks_by_house_and_course(dataset.data, course=course_x)
         i = 0
         for course_y in COURSES:
             if course_x != course_y:
                 axis = axes.flat[i]
-                marks_y = get_marks_by_house_and_course(dataset.data, course=course_y)
-                axis.scatter(marks_x, marks_y, s=1)
-                axis.set_title(marks_y.name, fontsize=10)
+                axis.scatter(data[course_x], data[course_y], s=1, c=get_colors(data))
+                axis.set_title(course_y, fontsize=10)
                 i += 1
         plt.tight_layout()
         plt.show()
 
 
-def plot_one_scatter(dataset, courses):
+def plot_one_scatter(data, courses):
     course_x, course_y = courses
-    marks_x = get_marks_by_house_and_course(dataset.data, course=course_x)
-    marks_y = get_marks_by_house_and_course(dataset.data, course=course_y)
+    data.plot.scatter(x=course_x, y=course_y, s=1, c=get_colors(data))
     plt.title(f"{course_x} vs {course_y}")
-    plt.scatter(marks_x, marks_y, s=1)
-    plt.xlabel(course_x)
-    plt.ylabel(course_y)
     plt.show()
 
 
@@ -46,11 +40,11 @@ def main():
     dataset = DataSet(TRAIN_DATA_PATH)
 
     if args.all:
-        plot_all_scatters(dataset, COURSES)
+        plot_all_scatters(dataset.data, COURSES)
     elif args.all_for_one:
-        plot_all_scatters(dataset, args.all_for_one)
+        plot_all_scatters(dataset.data, args.all_for_one)
     else:
-        plot_one_scatter(dataset, args.courses)
+        plot_one_scatter(dataset.data, args.courses)
 
 
 if __name__ == "__main__":

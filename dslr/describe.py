@@ -1,6 +1,6 @@
 import sys
 
-from dslr.models import DataSet
+from dslr.models.dataset import DataSet
 from dslr.utils import parse_describe
 
 
