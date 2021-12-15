@@ -32,9 +32,26 @@ Installation
 ******
 Usage
 ******
+- Data Visualization
+    - describe: describe the dataset (pandas.describe() style)
+        ``python dslr/describe.py [-h] csv_path``
 
-- run tests and lint with tox
-    ``poetry run tox``
+    - histogram: plot house marks by class as histograms
+        ``python dslr/histogram.py [-h] [--all] [-c COURSE]``
 
-- run tests and coverage locally
-    ```poetry run coverage run --source=dslr -m pytest && poetry run coverage report -m``
+    - scatter plot: plot comparison of class marks distribution as scatter plots
+        ``python/dslr scatter_plot.py [-h] [--all] [-c COURSES COURSES] [-afo ALL_FOR_ONE]``
+
+    - pair plot: plot the dataset as a pair plot
+        ``python dslr/pair_plot.py [-h]``
+
+- Logistic Regression
+    - train
+    - predict
+
+- Tests & Lint
+    - run tests and lint with tox
+        ``poetry run tox``
+
+    - run tests and coverage locally
+        ```poetry run coverage run --source=dslr -m pytest && poetry run coverage report -m``
