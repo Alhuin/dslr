@@ -1,5 +1,5 @@
 ============
-DSLR: 42School Machine Learning Project: Logistic Regression
+DSLR: 42School AI Project: Data Science x Logistic Regression
 ============
 
 ***************
@@ -24,9 +24,8 @@ Installation
 - set python 3.10 as directory interpreter
     - ``pyenv local 3.10.0``
 
-- setup poetry virtualenv
-    - ``poetry shell``
-    - ``poetry install``
+- setup poetry virtualenv and launch poetry shell
+    - ``make install``
 
 
 ******
@@ -34,24 +33,37 @@ Usage
 ******
 - Data Visualization
     - describe: describe the dataset (pandas.describe() style)
-        ``python dslr/describe.py [-h] csv_path``
+        ``make describe -- [-h] csv_path``
 
     - histogram: plot house marks by class as histograms
-        ``python dslr/histogram.py [-h] [--all] [-c COURSE]``
+        ``make histogram -- [-h] [--all] [-c COURSE]``
 
     - scatter plot: plot comparison of class marks distribution as scatter plots
-        ``python/dslr scatter_plot.py [-h] [--all] [-c COURSES COURSES] [-afo ALL_FOR_ONE]``
+        ``make scatter_plot -- [-h] [--all] [-c COURSES COURSES] [-afo ALL_FOR_ONE]``
 
     - pair plot: plot the dataset as a pair plot
-        ``python dslr/pair_plot.py [-h]``
+        ``make pair_plot -- [-h]``
 
 - Logistic Regression
-    - train
-    - predict
+    - train: train from the given dataset
+        ``make train -- [-h] csv_path``
+
+    - predict: make a prediction
+        ``make predict -- [-h] csv_path``
 
 - Tests & Lint
-    - run tests and lint with tox
-        ``poetry run tox``
+    - check lint with isort, black, flake8, mypy and bandit
+        ``make lint``
 
-    - run tests and coverage locally
-        ```poetry run coverage run --source=dslr -m pytest && poetry run coverage report -m``
+    - run tests and coverage
+        ``make test``
+
+- Dev tools
+    - format with isort and black
+        ``make format``
+
+    - clean project
+        ``make clean``
+
+    - run pre-commit configuration
+        ``make pre-commit``

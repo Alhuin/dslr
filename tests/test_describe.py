@@ -1,7 +1,7 @@
 import pytest
 
 from constants import DUMMY_DATA_PATH
-from dslr.describe import main
+from dslr.data_viz.describe import main
 
 
 def test_main_on_test_dataset(capfd):
