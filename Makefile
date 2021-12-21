@@ -46,18 +46,22 @@ fclean: clean
 
 .PHONY: lint
 lint: install
-	$(POETRY) run isort --profile=black --lines-after-imports=2 --check-only ./tests/ $(NAME)
-	$(POETRY) run black --check ./tests/ $(NAME) --diff
-	$(POETRY) run flake8 --ignore=W503,E501 ./tests/ $(NAME)
+	$(POETRY) run isort --profile=black --lines-after-imports=2 --check-only .
+	$(POETRY) run black --check --diff .
+	$(POETRY) run flake8 --max-line-length=120
 
 .PHONY: format
 format: install
-	$(POETRY) run isort --profile=black --lines-after-imports=2 ./tests/ $(NAME)
-	$(POETRY) run black ./tests/ $(NAME)
+	$(POETRY) run isort --profile=black --lines-after-imports=2 .
+	$(POETRY) run black .
 
 .PHONY: test
 test: install
 	$(POETRY) run coverage run --source=$(NAME) -m pytest -vv && $(POETRY) run coverage report -m
+
+.PHONY: pre-commit
+pre-commit: install
+	$(POETRY) run pre-commit run --all-files
 
 #	Project
 

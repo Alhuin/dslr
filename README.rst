@@ -51,19 +51,21 @@ Usage
     - predict: make a prediction
         ``make predict -- [-h] csv_path``
 
-- Tests & Lint
-    - check lint with isort, black, flake8, mypy and bandit
+- Dev tools
+    - check lint with isort, black and flake8
         ``make lint``
 
     - run tests and coverage
         ``make test``
 
-- Dev tools
     - format with isort and black
         ``make format``
 
     - clean project
         ``make clean``
 
-    - run pre-commit configuration
+    - clean project and remove virtual env
+        ``make fclean``
+
+    - run pre-commit configuration on all files
         ``make pre-commit``
